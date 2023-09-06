@@ -6,7 +6,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ('email', 'first_name', 'last_name')
 
 
-class Allergens(models.Model):
+class Allergen(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -40,7 +40,7 @@ class PhotoQuery(models.Model):
         ordering = ['-query_date']
 
 
-class Ingredients(models.Model):
+class Ingredient(models.Model):
     query = models.ForeignKey(
         PhotoQuery,
         on_delete=models.CASCADE,
