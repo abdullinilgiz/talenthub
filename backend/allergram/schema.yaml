@@ -1,0 +1,579 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/users/:
+    get:
+      operationId: listUsers
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DjoserUser'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreate'
+          description: ''
+      tags:
+      - api
+  /api/users/me/:
+    get:
+      operationId: meUser
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+  /api/users/{id}/:
+    get:
+      operationId: retrieveUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DjoserUser'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DjoserUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DjoserUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DjoserUser'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DjoserUser'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DjoserUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DjoserUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DjoserUser'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DjoserUser'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/allergens/:
+    get:
+      operationId: listAllergens
+      description: List all Allergen instances
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Allergen'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createAllergen
+      description: Create Allergen
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allergen'
+          description: ''
+      tags:
+      - api
+  /api/allergens/{id}/:
+    get:
+      operationId: retrieveAllergen
+      description: Retrieve Allergen by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this allergen.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allergen'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateAllergen
+      description: ModelViewSet for all allergens in database.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this allergen.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allergen'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyAllergen
+      description: Delete Allergen by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this allergen.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/myallergens/:
+    get:
+      operationId: listAllergens
+      description: List all Allergen inctances of current user
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Allergen'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createAllergen
+      description: Create Allergen
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allergen'
+          description: ''
+      tags:
+      - api
+  /api/myallergens/{id}/:
+    get:
+      operationId: retrieveAllergen
+      description: Retrieve Allergen of current user by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allergen'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateAllergen
+      description: ModelViewSet for allergens of current user.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Allergen'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allergen'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyAllergen
+      description: Delete Allergen of current user by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/history/:
+    get:
+      operationId: listPostPhotoQuerys
+      description: List all PhotoQuery instances of current user
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PostPhotoQuery'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createPostPhotoQuery
+      description: Create PhotoQuery
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPhotoQuery'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PostPhotoQuery'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PostPhotoQuery'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostPhotoQuery'
+          description: ''
+      tags:
+      - api
+  /api/history/{id}/:
+    get:
+      operationId: retrievePostPhotoQuery
+      description: Retrieve PhotoQuery of current user by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostPhotoQuery'
+          description: ''
+      tags:
+      - api
+  /api/auth/token/login/:
+    post:
+      operationId: createTokenCreate
+      description: Use this endpoint to obtain user authentication token.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenCreate'
+          description: ''
+      tags:
+      - api
+  /api/auth/token/logout/:
+    post:
+      operationId: createTokenDestroy
+      description: Use this endpoint to logout user (remove user authentication token).
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    DjoserUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+      required:
+      - username
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+    Allergen:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        user:
+          type: integer
+      required:
+      - name
+    PostPhotoQuery:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        image:
+          type: string
+          format: binary
+        user:
+          type: integer
+      required:
+      - name
+      - image
+    TokenCreate:
+      type: object
+      properties:
+        password:
+          type: string
+        username:
+          type: string
+    UserCreate:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - username
+      - password
