@@ -17,6 +17,10 @@ class Allergen(models.Model):
         max_length=100,
         blank=False,
     )
+    allergen_id = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+    )
 
 
 class PhotoQuery(models.Model):
@@ -31,7 +35,7 @@ class PhotoQuery(models.Model):
         blank=False,
     )
     image = models.ImageField(
-        upload_to='query/',
+        upload_to='query',
         blank=False,
     )
     query_date = models.DateTimeField(auto_now_add=True)
@@ -50,4 +54,7 @@ class Ingredient(models.Model):
     name = models.CharField(
         max_length=100,
         blank=False,
+    )
+    is_dangerous = models.BooleanField(
+        blank=True
     )

@@ -1,3 +1,10 @@
-# from django.contrib import admin
+from django.contrib import admin
 
-# Register your models here.
+from ingredients.models import PhotoQuery
+
+
+class PhotoQueryAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(PhotoQuery, PhotoQueryAdmin)

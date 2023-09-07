@@ -24,8 +24,29 @@ class AllergenSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Allergen
-        fields = ('id', 'name', 'user')
-        read_only_fields = ('id', 'user', )
+        fields = ('id', 'name', 'user', 'allergen_id', )
+        read_only_fields = ('id', 'user', 'allergen_id', )
+
+
+class GetIngredientsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = ('id', 'name', 'is_dangerous', )
+        read_only_fields = ('id', 'is_dangerous', )
+
+
+class GetPhotoQuerySerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        default=serializers.CurrentUserDefault()
+    )
+    ingredients = GetIngredientsSerializer(many=True)
+    image = serializers.ReadOnlyField(source='image.url')
+
+    class Meta:
+        model = PhotoQuery
+        fields = ('id', 'name', 'image', 'user', 'ingredients')
+        read_only_fields = ('id', 'user', 'ingredients')
 
 
 class Base64ImageField(serializers.ImageField):
@@ -51,28 +72,9 @@ class PostPhotoQuerySerializer(serializers.ModelSerializer):
         fields = ('name', 'image', 'user', )
         read_only_fields = ('user', )
 
-
-class GetIngredientsSerializer(serializers.ModelSerializer):
-    # query = serializers.PrimaryKeyRelatedField(
-    #     queryset=PhotoQuery.objects.all(),
-    #     required=False,
-    # )
-
-    class Meta:
-        model = Ingredient
-        fields = ('id', 'name', )
-        read_only_fields = ('id', )
-
-
-class GetPhotoQuerySerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-        default=serializers.CurrentUserDefault()
-    )
-    ingredients = GetIngredientsSerializer(many=True)
-    image = serializers.ReadOnlyField(source='image.url')
-
-    class Meta:
-        model = PhotoQuery
-        fields = ('id', 'name', 'image', 'user', )
-        read_only_fields = ('id', 'user', )
+    def to_representation(self, instance):
+        serializer = GetPhotoQuerySerializer(
+            instance,
+            context={'request': self.context['request']}
+        )
+        return serializer.data
