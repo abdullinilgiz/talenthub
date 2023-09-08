@@ -144,7 +144,6 @@ class PhotoQueryViewSet(mixins.ListModelMixin,
     def perform_create(self, serializer):
         instance = serializer.save()
         image_path = instance.image.path
-        print(image_path)
         Original_img = mpimg.imread(image_path)
         img = np.uint8(np.clip((cv.add(1.5 * Original_img, 0)), 0, 255))
         reader = easyocr.Reader(['ru'])
@@ -164,19 +163,22 @@ class PhotoQueryViewSet(mixins.ListModelMixin,
             user=self.request.user).values_list('allergen_id', flat=True))
         matches = self._find_matching_words(ingredients, allergens_ids)
         print(matches)
-        ingredients_for_bulk = []
+        all_ingredients_for_bulk = []
         for ingr in ingredients:
-            marker = False
-            for match in matches:
-                if match in ingr:
-                    marker = True
-                    break
-            ingredients_for_bulk.append(Ingredient(
+            all_ingredients_for_bulk.append(Ingredient(
                 query=instance,
                 name=ingr,
-                is_dangerous=marker,
+                is_dangerous=False,
             ))
-        Ingredient.objects.bulk_create(ingredients_for_bulk)
+        dangerous_ingredients_for_bulk = []
+        for match in matches:
+            dangerous_ingredients_for_bulk.append(Ingredient(
+                query=instance,
+                name=match,
+                is_dangerous=True,
+            ))
+        Ingredient.objects.bulk_create(all_ingredients_for_bulk)
+        Ingredient.objects.bulk_create(dangerous_ingredients_for_bulk)
 
     def get_queryset(self):
         return PhotoQuery.objects.filter(user=self.request.user)
